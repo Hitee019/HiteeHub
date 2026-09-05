@@ -15,7 +15,7 @@ from detector import Transaction, detect_subscriptions
 
 
 ROOT = Path(__file__).parent
-STATIC = ROOT / "static"
+STATIC = ROOT / "static" if (ROOT / "static").is_dir() else ROOT
 
 
 def parse_transactions(payload) -> list[Transaction]:

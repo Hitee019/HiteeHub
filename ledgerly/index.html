@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f5f0" />
+    <title>Ledgerly — recurring spend detector</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body onload="import('/app.js')">
+    <div class="shell">
+      <nav class="nav">
+        <a class="brand" href="/" aria-label="Ledgerly home">
+          <span class="brand-mark">↗</span>
+          <span>ledgerly</span>
+        </a>
+        <div class="nav-meta">
+          <span class="live-dot"></span>
+          <span>private by design</span>
+        </div>
+      </nav>
+
+      <main>
+        <section class="hero">
+          <div class="eyebrow"><span class="eyebrow-line"></span> recurring spend intelligence</div>
+          <h1>Find the quiet<br /><em>leaks</em> in your money.</h1>
+          <p class="hero-copy">Drop in your transactions. Ledgerly spots the recurring charges hiding in plain sight — and shows what they really cost over a year.</p>
+        </section>
+
+        <section class="workspace" aria-label="Subscription detector">
+          <div class="input-card card">
+            <div class="card-heading">
+              <div>
+                <span class="step">01 / INPUT</span>
+                <h2>Bring your transactions</h2>
+              </div>
+              <button class="text-button" id="sampleButton" type="button">Use sample data <span>↗</span></button>
+            </div>
+            <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="Upload a CSV file">
+              <input id="fileInput" type="file" accept=".csv,text/csv" />
+              <div class="upload-icon">↑</div>
+              <strong>Drop a CSV here, or browse</strong>
+              <span>Expected columns: merchant, amount, date</span>
+            </div>
+            <div class="or-divider"><span>or paste JSON</span></div>
+            <label class="sr-only" for="jsonInput">Transaction JSON</label>
+            <textarea id="jsonInput" spellcheck="false" placeholder='[{"merchant":"Netflix","amount":15.49,"date":"2026-01-05"}]'></textarea>
+            <div class="input-footer">
+              <span id="inputStatus">No transactions loaded</span>
+              <button id="detectButton" class="primary-button" type="button">Detect subscriptions <span>→</span></button>
+            </div>
+            <p class="privacy-note"><span>⌁</span> Your data stays in this session and is never stored.</p>
+          </div>
+
+          <div class="results-panel">
+            <div class="results-heading">
+              <div>
+                <span class="step">02 / RESULTS</span>
+                <h2>Your recurring spend</h2>
+              </div>
+              <span class="result-count" id="resultCount">—</span>
+            </div>
+            <div id="emptyState" class="empty-state">
+              <div class="empty-orbit"><span>✦</span></div>
+              <h3>Nothing detected yet</h3>
+              <p>Load your data to reveal the subscriptions and recurring charges in your transaction history.</p>
+            </div>
+            <div id="loadingState" class="empty-state hidden">
+              <div class="loading-spinner"></div>
+              <h3>Reading your patterns…</h3>
+              <p>Comparing merchants, amounts, and intervals.</p>
+            </div>
+            <div id="results" class="hidden">
+              <div class="stats-grid">
+                <div class="stat-card"><span class="stat-label">Annual recurring</span><strong id="annualTotal">$0</strong><span class="stat-detail">estimated / year</span></div>
+                <div class="stat-card"><span class="stat-label">Monthly average</span><strong id="monthlyTotal">$0</strong><span class="stat-detail">across detected charges</span></div>
+                <div class="stat-card accent-stat"><span class="stat-label">Subscriptions</span><strong id="subscriptionTotal">0</strong><span class="stat-detail">patterns found</span></div>
+              </div>
+              <div id="subscriptionList" class="subscription-list"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>LEDGERLY / PATTERN RECOGNITION FOR EVERYDAY MONEY</span>
+        <span>LOCAL ANALYSIS · 2026</span>
+      </footer>
+    </div>
+    
+  </body>
+</html>
